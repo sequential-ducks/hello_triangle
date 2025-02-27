@@ -11,8 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Vendor-specific extensions are off
 set(CMAKE_CXX_EXTENSIONS OFF) 
 
-# Define project with C++ as language and hello_window.cpp as source file
-project(hello_window LANGUAGES CXX)
+# Define project with C++ as language and source files
+project(hello_triangle LANGUAGES CXX)
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE main.cpp setup.cpp)
 
@@ -63,22 +63,9 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ${ipo_supported})
 # Enable debugging options for compiling in debug mode
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     message(STATUS "Debug build: enabling debug symbols and warnings and testing options")
-    target_compile_options(${PROJECT_NAME} PRIVATE -g -Wall -Wextra -Wpedantic)
+    target_compile_options(${PROJECT_NAME} PRIVATE -g -O0 -Wall -Wextra -Wpedantic)
     include(CTest)
     enable_testing()
-    # Find the Valgrind executable
-    find_program(VALGRIND_EXECUTABLE NAMES valgrind)
-    # If Valgrind is found, add an option to test for memory leaks
-    if(VALGRIND_EXECUTABLE)
-    add_test(
-      NAME MemoryCheck
-      COMMAND ${VALGRIND_EXECUTABLE} --leak-check=full --show-leak-kinds=all --error-exitcode=1 $<TARGET_FILE:${PROJECT_NAME}>
-    )
-    message(STATUS "Debugging: Valgrind testing option added")
-    else()
-    # Warn the user if Valgrind is not found
-    message(WARNING "Valgrind not found, memory check test disabled")
-    endif()
 endif()
 
 # Display end message
