@@ -13,7 +13,7 @@ git submodule update --init --recursive
 # Navigate to vcpkg directory
 cd $VCPKG_DIR
 
-# Force use of GCC-12 if available
+# Force use of GCC-12 if available due to bugs in 13
 if command -v gcc-12 &> /dev/null && command -v g++-12 &> /dev/null; then
     export CC=gcc-12
     export CXX=g++-12
@@ -26,7 +26,11 @@ fi
 echo "Bootstrapping vcpkg..."
 ./bootstrap-vcpkg.sh
 
+# Install graphics libs
 echo "Installing glad..."
 ./vcpkg install glad
+
+echo "Installing glfw3..."
+./vcpkg install glfw3
 
 echo "vcpkg setup complete!"
