@@ -14,7 +14,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Define project with C++ as language and source files
 project(hello_triangle LANGUAGES CXX)
 add_executable(${PROJECT_NAME})
-target_sources(${PROJECT_NAME} PRIVATE main.cpp setup.cpp)
+target_sources(${PROJECT_NAME} PRIVATE main.cpp setup.cpp triangle.cpp)
 
 # Set the source of the vcpkg package manager
 set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/external/vcpkg/installed/x64-linux")

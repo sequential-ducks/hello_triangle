@@ -1,7 +1,15 @@
+/**
+* @include Headers
+*/
+
 #include "setup.hpp"
+#include "triangle.hpp"
 #include <stdlib.h> // For exit()
 #include <iostream>
 
+/**
+ * @section main
+ */
 int main()
 {
     // Create an instance of My_GLFW_Window_Manager
