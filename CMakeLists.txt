@@ -11,10 +11,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Vendor-specific extensions are off
 set(CMAKE_CXX_EXTENSIONS OFF) 
 
+# Define source directories
+set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
+set(CORE_DIR ${SRC_DIR}/core)
+set(GRAPHICS_DIR ${SRC_DIR}/graphics)
+
+# Collect all source files
+file(GLOB_RECURSE SOURCES
+    "${SRC_DIR}/*.cpp"
+    "${CORE_DIR}/*.cpp"
+    "${GRAPHICS_DIR}/*.cpp"
+)
+
 # Define project with C++ as language and source files
 project(hello_triangle LANGUAGES CXX)
+# Collect all header files
+include_directories(${CMAKE_SOURCE_DIR}/include)
 add_executable(${PROJECT_NAME})
-target_sources(${PROJECT_NAME} PRIVATE main.cpp setup.cpp triangle.cpp)
+target_sources(${PROJECT_NAME} PRIVATE ${SOURCES})
 
 # Set the source of the vcpkg package manager
 set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/external/vcpkg/installed/x64-linux")
