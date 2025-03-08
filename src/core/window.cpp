@@ -1,7 +1,7 @@
 /**
 * @include Headers
 */
-#include "setup.hpp"
+#include "window.hpp"
 #include <cstdio>
 
 /**
