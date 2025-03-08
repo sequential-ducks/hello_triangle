@@ -61,6 +61,20 @@ public:
     /**
     * @subsection Constructors
     */
+    /**
+     * @brief Constructs a Vertex Buffer Object (VBO) and initializes it with 
+     *        vertex data.
+     * 
+     * This constructor generates a buffer, binds it to the GL_ARRAY_BUFFER 
+     * target, and uploads the provided vertex data to the GPU using the 
+     * specified draw type that affects write speed.
+     * 
+     * @param vertices A vector containing the vertex data to be uploaded to the GPU.
+     * @param DRAW_TYPE The usage pattern of the data store. It can be 
+     *                  GL_STATIC_DRAW, GL_DYNAMIC_DRAW, or GL_STREAM_DRAW, 
+     *                  which determine the expected 
+     *                  usage pattern of the data and needed write speeds.
+     */
     VBO(const std::vector<float>& vertices, const GLenum& DRAW_TYPE=GL_STATIC_DRAW);
 
     /**
@@ -83,7 +97,8 @@ protected:
      */
     /**
      * @name VBO::bindBuffer 
-     * @brief @remark Calls to GL_ARRAY_BUFFER will use the buffer_id of the 
+     * @brief Sets the buffer_id binded to the vertex buffer
+     * @remark Calls to GL_ARRAY_BUFFER will use the buffer_id of the 
      *                VBO class object.
      */
     void bindBuffer(const GLenum GL_ARRAY_BUFFER);
