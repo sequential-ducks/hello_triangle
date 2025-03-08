@@ -97,6 +97,8 @@ void My_GLFW_Window_Manager::terminate_GLFW_Window_Manager()
     }
     // Terminate GLFW
     glfwTerminate();
+    // Clear title pointer
+    title = nullptr;
 }
 
 /**
