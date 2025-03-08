@@ -1,18 +1,21 @@
 #include "buffers.hpp"
 
-void Buffers::generateBuffer()
+void Buffers::generateBufferID()
 {
     glGenBuffers(&buffer_id);
 }
 
-void Buffers::bindBuffer(const auto &BUFFER_TYPE)
+void VBO::bindBuffer(const GLenum GL_ARRAY_BUFFER)
 {
     glBindBuffer(BUFFER_TYPE, &buffer_id);
 
 }
 
-VBO::VBO(const auto vertexArray, const auto &DRAW_TYPE)
+VBO::VBO(const std::vector<float> &vertices, const GLenum &DRAW_TYPE=GL_STATIC_DRAW)
 {
     generateBuffer();
     bindBuffer(GL_ARRAY_BUFFER);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexArray), vertexArray, DRAW_TYPE);
 }
+
+

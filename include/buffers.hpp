@@ -32,21 +32,19 @@ protected:
      * @subsection Protected Member Functions
      */
     /**
-    * @name generateBuffer
-    * @brief Sets buffer_id as an unique id of a generated buffer
+    * @name Buffers::generateBufferID
+    * @brief Sets buffer_id as a unique OpenGL buffer ID
     */
-    void generateBuffer();
+    void generateBufferID();
     /**
-     * @name bindBuffer
+     * @name Buffers::bindBuffer
      * @brief After this, any buffer calls to buffers' set by BUFFER_TYPE
-     * will reference the buffer type and it's buffer id. 
-     * @remark For example GL_ARRAY_BUFFER sets the vertex buffer, and such
-     * calls to GL_ARRAY_BUFFER will use the buffer_id of the VBO class object. 
+     * will reference the buffer type and it's buffer id.  
      */
-    void bindBuffer(const auto &BUFFER_TYPE);
+    void bindBuffer(const GLenum &BUFFER_TYPE);
     /**
-     * @var Buffers::buffer_ids
-     * @brief A smart pointer to a vector of ID's creacted for buffers. 
+     * @var Buffers::buffer_id
+     * @brief A smart pointer to IDs created for buffers. 
      * Default null. Creation of buffers is limited to 1.
      */
     std::unique_ptr<unsigned int> buffer_id{ nullptr };
@@ -63,7 +61,7 @@ public:
     /**
     * @subsection Constructors
     */
-    VBO(const auto vertexArray, const auto& DRAW_TYPE);
+    VBO(const std::vector<float>& vertices, const GLenum& DRAW_TYPE=GL_STATIC_DRAW);
 
     /**
     * @subsection Destructors
@@ -83,8 +81,21 @@ protected:
     /**
      * @subsection Protected Member Functions
      */
-    
+    /**
+     * @name VBO::bindBuffer 
+     * @brief @remark Calls to GL_ARRAY_BUFFER will use the buffer_id of the 
+     *                VBO class object.
+     */
+    void bindBuffer(const GLenum GL_ARRAY_BUFFER);
 
 
+private:
+
+    std::vector<float> two_dimensional_triangle[] =
+    {
+        -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+        0.0f,  0.5f, 0.0f
+    };
 };
     
