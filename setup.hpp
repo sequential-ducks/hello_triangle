@@ -16,9 +16,9 @@
  * @class My_GLFW_Window_Manager
  * @brief Manages the creation and lifecycle of a GLFW window with OpenGL context.
  * 
- * This class handles the initialization of GLFW, creation of a window, and setting up
- * the OpenGL context. It also provides utility functions to get window properties and
- * resize the OpenGL viewport when the window is resized.
+ * This class handles the initialization of GLFW, creation of a window, and 
+ * setting up the OpenGL context. It also provides utility functions to get 
+ * window properties and resize the OpenGL viewport when the window is resized.
  * 
  * @note This class is designed to have only one instance in the program.
  */
