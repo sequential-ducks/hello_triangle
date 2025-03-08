@@ -2,10 +2,12 @@
 * @include Headers
 */
 
-#include "setup.hpp"
-#include "triangle.hpp"
+#include "window.hpp"
+#include "primitives.hpp"
+#include "buffers.hpp"
 #include <stdlib.h> // For exit()
 #include <iostream>
+#include <cstdlib>
 
 
 /**
