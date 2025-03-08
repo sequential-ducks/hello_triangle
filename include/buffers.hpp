@@ -1,3 +1,5 @@
+#include <memory>
+
 /**
  * @class Buffers.
  * @brief Base class for datastructures in GPU's memory enabling data to be sent 
@@ -62,5 +64,5 @@ class Buffers{
          * @note Assigns an ID for the Vertex Buffer Object.
          */
         VBO();
-    }
+};
     
