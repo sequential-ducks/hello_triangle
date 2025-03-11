@@ -1,6 +1,7 @@
 #pragma once
 #include <glad/glad.h>
 #include <cstddef>
+#include <stdexcept>
 
 /**
  * @class VertexShader
@@ -24,6 +25,11 @@ public:
      */
     VertexShader();
 
+    /**
+     * @fn VertexShader::VertexShader(const char* source)
+     * @brief Creates a new vertex shader object from the provided source code.
+     * @param source A constant character pointer to the GLSL source code for the vertex shader.
+     */
     VertexShader(const char* source);
     /*
     * @fn VertexShader::~VertexShader()
@@ -32,6 +38,13 @@ public:
     virtual ~VertexShader();
 
 private:
+    /**
+     * @fn checkShaderCompilation
+     * @brief Checks if any errors happened and if a shader
+     * was compiled. 
+     * @throws Logic error if shader compilation failed
+     */
+    void checkShaderCompilation();
 
     /**
      * @var VertexShader::vertexShaderSource
