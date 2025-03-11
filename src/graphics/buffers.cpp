@@ -2,19 +2,19 @@
 
 void Buffers::generateBufferID()
 {
-    glGenBuffers(1, &buffer_id);
+    glGenBuffers(1, buffer_id.get());
 }
 
-void VBO::bindBuffer(const GLenum GL_ARRAY_BUFFER)
+void VBO::bindBuffer( const GLenum bufferType )
 {
-    glBindBuffer(BUFFER_TYPE, buffer_id);
+    glBindBuffer( bufferType, *buffer_id );
 
 }
 
 
 VBO::VBO(const std::vector<float> &vertices, const GLenum &DRAW_TYPE)
 {
-    generateBuffer();
+    generateBufferID();
     bindBuffer(GL_ARRAY_BUFFER);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float),
                  vertices.data(), DRAW_TYPE);
