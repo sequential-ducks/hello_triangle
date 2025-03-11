@@ -20,3 +20,16 @@ VertexShader::~VertexShader()
     delete vertexShaderSource;
 }
 
+void VertexShader::checkShaderCompilation()
+{
+    int success;
+    char infoLog[512];
+    glGetShaderiv(vertexShaderID_, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(vertexShaderID_, 512, NULL, infoLog);
+        throw std::logic_error(std::string("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n ") 
+                                + infoLog);
+    }
+
+}
