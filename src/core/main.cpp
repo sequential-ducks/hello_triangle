@@ -4,10 +4,7 @@
 #include "window.hpp"
 #include "buffers.hpp"
 #include "shaders.hpp"
-#include <stdlib.h> 
 #include <iostream>
-#include <cstdlib>
-
 
 /**
  * @section main

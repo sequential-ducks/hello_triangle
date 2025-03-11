@@ -2,7 +2,6 @@
 * @include Headers
 */
 #include "window.hpp"
-#include <cstdio>
 
 /**
 * @section Static members
