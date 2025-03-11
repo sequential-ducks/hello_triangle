@@ -23,7 +23,15 @@ int main()
         // If initialization fails, exit the program
         exit(EXIT_FAILURE);
     }
-    
+    // Compile a Vertex Shader
+    try
+    {
+        auto vertexShader = VertexShader();
+    }catch( const std::logic_error& except)
+    {
+        std::cout << except.what();
+        return 1;
+    }
     // Enter the display loop
     windowManager.display();
     // Print success message
