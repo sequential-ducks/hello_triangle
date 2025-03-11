@@ -7,6 +7,8 @@
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
 #include <cstdio>
+#include <memory>
+#include <string>
 
 /**
 * @section Classes 
@@ -74,11 +76,11 @@ public:
     /**
      * @brief Gets the GLFW window pointer.
      * 
-     * @return GLFWwindow* Pointer to the GLFW window.
+     * @return Pointer to the GLFW window.
      */
     inline GLFWwindow* getWindow() const
     {
-        return window;
+        return window_.get();
     }
     /**
      * @brief Gets the width of the window.
@@ -87,7 +89,7 @@ public:
     */
     inline int getWindowWidth() const
     {
-        return windowWidth;
+        return windowWidth_;
     }
     /**
      * @brief Gets the height of the window.
@@ -96,16 +98,16 @@ public:
      */
     inline int getWindowHeight() const
     {
-        return windowHeight;
+        return windowHeight_;
     }
     /**
      * @brief Gets the title of the window.
      * 
-     * @return const char* Title of the window.
+     * @return Pointer to title of the window.
     */
-    inline const char* getTitle() const
+    inline const std::string getTitle() const
     {
-        return title;
+        return title_;
     }
     /**
      * @brief Gets the value of the initialization flag
@@ -114,7 +116,7 @@ public:
     */
     inline bool getInitialization() const
     {
-        return initialization_success;
+        return initialization_success_;
     }
 
     /**
@@ -128,7 +130,7 @@ public:
      */
     inline void setInitializationSuccess(bool success)
     {
-        initialization_success = success;
+        initialization_success_ = success;
     }
 
 private:
@@ -185,8 +187,8 @@ private:
     * 
     * @note This function is called when the window is resized by the user.
     */
-    static void inline window_resize(GLFWwindow* window, int new_width, 
-                                        int new_height) 
+    static void inline window_resize(GLFWwindow* window,  int new_width, 
+                                     int new_height) 
     {
         glViewport(0, 0, new_width, new_height);
         
@@ -206,26 +208,26 @@ private:
     * @brief Flag indicating whether GLFW and window initialization was 
     * successful.
     */
-    static bool initialization_success;
+    static bool initialization_success_;
     /**
     * @var My_GLFW_Window_Manager::window
     * @brief Pointer to the GLFW window.
     */
-    static GLFWwindow* window;
+    static std::shared_ptr<GLFWwindow> window_;
     /**
     * @var My_GLFW_Window_Manager::windowWidth
     * @brief Width of the window (default 640).
     */
-    static int windowWidth;
+    static int windowWidth_;
     /**
     * @var My_GLFW_Window_Manager::windowHeight
     * @brief Height of the window (default 480).
     */
-    static int windowHeight;
+    static int windowHeight_;
     /**
     * @var My_GLFW_Window_Manager::title
     * @brief Title of the window.
     */
-    static const char* title;
+    static const std::string title_;
 
 };
