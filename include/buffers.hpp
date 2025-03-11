@@ -47,7 +47,7 @@ protected:
      * @brief A smart pointer to IDs created for buffers. 
      * Default null. Creation of buffers is limited to 1.
      */
-    std::unique_ptr<unsigned int> buffer_id{ nullptr };
+    std::unique_ptr<unsigned int> buffer_id;
 
 
 };
@@ -101,12 +101,11 @@ protected:
      * @remark Calls to GL_ARRAY_BUFFER will use the buffer_id of the 
      *                VBO class object.
      */
-    void bindBuffer(const GLenum GL_ARRAY_BUFFER);
-
+    void bindBuffer(const GLenum bufferType = GL_ARRAY_BUFFER);
 
 private:
 
-    std::vector<float> two_dimensional_triangle[] =
+    std::vector<float> two_dimensional_triangle_ =
     {
         -0.5f, -0.5f, 0.0f,
         0.5f, -0.5f, 0.0f,
