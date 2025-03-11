@@ -34,8 +34,6 @@ int main()
     }
     // Enter the display loop
     windowManager.display();
-    // Print success message
-    std::cout << "Success!" << std::endl;
     // Program executed successfully
     return 0;
 }
