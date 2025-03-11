@@ -13,30 +13,30 @@
 * @brief Flag indicating whether GLFW and window initialization was 
 * successful (default true).
 */
-bool My_GLFW_Window_Manager::initialization_success{ true };
+bool My_GLFW_Window_Manager::initialization_success_{ true };
 /**
  * @var My_GLFW_Window_Manager::window
  * @brief Pointer to the GLFW window.
  */
-GLFWwindow* My_GLFW_Window_Manager::window{ nullptr };
+std::shared_ptr<GLFWwindow> My_GLFW_Window_Manager::window_{ nullptr, glfwDestroyWindow };
 
 /**
  * @var My_GLFW_Window_Manager::windowWidth
  * @brief Width of the window (default 640).
  */
-int My_GLFW_Window_Manager::windowWidth{ 640 };
+int My_GLFW_Window_Manager::windowWidth_{ 640 };
 
 /**
  * @var My_GLFW_Window_Manager::windowHeigth
  * @brief Height of the window (default 480).
  */
-int My_GLFW_Window_Manager::windowHeight{ 480 };
+int My_GLFW_Window_Manager::windowHeight_{ 480 };
 
 /**
  * @var My_GLFW_Window_Manager::title
  * @brief Title of the window.
  */
-const char* My_GLFW_Window_Manager::title{ "LearnOpenGL" };
+const std::string My_GLFW_Window_Manager::title_{ "LearnOpenGL" };
 
 /**
 * @section Constructor & Initialization
@@ -90,15 +90,8 @@ My_GLFW_Window_Manager::~My_GLFW_Window_Manager()
 
 void My_GLFW_Window_Manager::terminate_GLFW_Window_Manager() 
 {
-    // Destroy the window if it exists
-    if ( window ) {
-        glfwDestroyWindow( window );
-        window = nullptr;
-    }
     // Terminate GLFW
     glfwTerminate();
-    // Clear title pointer
-    title = nullptr;
 }
 
 /**
@@ -123,7 +116,11 @@ bool My_GLFW_Window_Manager::openGLFW()
         {
             std::printf( "GLFW initialization failed with error code %d: %s\n", 
                           error_code, glfw_init_errors );
+            glfw_init_errors = nullptr;
+            delete glfw_init_errors;
+            return false;
         }
+    delete glfw_init_errors;
     }else
     {
         // Set the openGL version as 3.3 per tutorial at learnopengl.com
@@ -132,7 +129,6 @@ bool My_GLFW_Window_Manager::openGLFW()
         // Request core OpenGL profile
         glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
     }
-    
     return success;
 }
 
@@ -142,8 +138,9 @@ bool My_GLFW_Window_Manager::createWindow()
     bool success{ true };
 
     // Try to generate a window
-    if( ( window = glfwCreateWindow( windowWidth, windowHeight, title, nullptr, 
-                                     nullptr ) ) == nullptr )
+    window_.reset(glfwCreateWindow(windowWidth_,
+                             windowHeight_, title_.c_str(), nullptr, nullptr), glfwDestroyWindow);
+    if (!window_)
         {
             // Window generating failed
             success = false;
@@ -162,7 +159,7 @@ bool My_GLFW_Window_Manager::createWindow()
         }else
         {
             // Set created window as main context
-            glfwMakeContextCurrent( window );
+            glfwMakeContextCurrent( window_.get());
         }
 
         return success;                                     
@@ -175,16 +172,16 @@ bool My_GLFW_Window_Manager::createWindow()
 void My_GLFW_Window_Manager::processInput()
 {
     // Check if the escape key is pressed
-    if ( glfwGetKey(window, GLFW_KEY_ESCAPE ) == GLFW_PRESS )
+    if ( glfwGetKey( window_.get() , GLFW_KEY_ESCAPE ) == GLFW_PRESS )
     {
-        glfwSetWindowShouldClose( window, true );
+        glfwSetWindowShouldClose( window_.get(), true );
     }
 }
 
 void My_GLFW_Window_Manager::display()
 {
     // Main loop until the window should close
-    while( !glfwWindowShouldClose( window ) )
+    while( !glfwWindowShouldClose( window_.get() ) )
     {
         /**
         * @subsection Input handling
@@ -200,7 +197,7 @@ void My_GLFW_Window_Manager::display()
         * @subsection Buffers swap & event handling
         */
         // Swap front and back buffers
-        glfwSwapBuffers( window );
+        glfwSwapBuffers( window_.get() );
         // Poll for and process events
         glfwPollEvents();
     }
