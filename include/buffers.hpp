@@ -8,24 +8,6 @@
  *        from cpu to gpu in batches. Specific buffers inherit from this class.
  */
 class Buffers{
-public:
-    /**
-    * @subsection Constructors
-    */
-    /**
-    * @subsection Destructors
-    */
-    /**
-    * @subsection Public Member Functions
-    */        
-    /**
-    * @subsection Getters
-    */
-    /**
-    * @subsection Setters
-    */
-
-
 
 protected:
     /**
@@ -81,15 +63,6 @@ public:
     * @subsection Destructors
     */
     /**
-    * @subsection Public Member Functions
-    */
-
-    /**
-    * @subsection Getters
-    */
-    /**
-    * @subsection Setters
-    */
 
 protected:
     /**
