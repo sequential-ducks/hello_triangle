@@ -1,5 +1,6 @@
 #pragma once
 #include <glad/glad.h>
+#include <cstddef>
 
 /**
  * @class VertexShader
@@ -11,8 +12,6 @@
  * @remark The GLSL version used is 330 core.
  * @remark The input variable location is set to 0.
  * 
- * @fn VertexShader::~VertexShader()
- * Virtual destructor for the VertexShader class.
  */
 class VertexShader
 {
@@ -25,9 +24,15 @@ public:
      */
     VertexShader();
 
+    VertexShader(const char* source);
+    /*
+    * @fn VertexShader::~VertexShader()
+    * @brief Default virtual destructor for the VertexShader class.
+    */
     virtual ~VertexShader();
 
 private:
+
     /**
      * @var VertexShader::vertexShaderSource
      * @brief A constant character pointer containing the GLSL source code for 
@@ -43,5 +48,5 @@ private:
      * @var VertexShader::vertexShader_
      * @brief An unsigned integer representing the compiled vertex shader.
     */
-    unsigned int vertexShader_;
+    unsigned int vertexShaderID_;
 };
