@@ -45,7 +45,7 @@
  * - VAO (Vertex Array Object) class
  * - EBO (Element Buffer Object) class
  */
-class VBO
+class VertexBuffer
 {
 public:
 
