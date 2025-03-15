@@ -1,3 +1,26 @@
+/**
+ * @file window.hpp
+ * @brief Header file for managing and setting up a GLFW window with an 
+ * OpenGL context.
+ * 
+ * This file contains the declaration of the My_GLFW_Window_Manager class, which 
+ * is responsible for initializing the GLFW library, creating a window, and 
+ * setting up the OpenGL context. The class provides utility functions to 
+ * handle window properties, process user input, and manage the display logic 
+ * of the application. It ensures that there is only one instance of the window 
+ * manager in the program and handles the lifecycle of the window and the 
+ * OpenGL context.
+ * 
+ * The class includes methods for:
+ * - Initializing the GLFW library and OpenGL context.
+ * - Creating and managing a GLFW window.
+ * - Handling window resizing and updating the OpenGL viewport.
+ * - Processing user input and managing display logic.
+ * 
+ * This file should be included in any application that requires a GLFW window 
+ * with an OpenGL context for rendering graphics.
+ */
+
 #pragma once
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
@@ -172,7 +195,7 @@ private:
      * successful.
     */
     static bool initialization_success_;
-    
+
     /**
      * @var My_GLFW_Window_Manager::window
      * @brief Pointer to the GLFW window.
