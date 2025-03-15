@@ -11,9 +11,22 @@
 #include <memory> // !!NOT USED YET!! Possibly turn char naked ptr to smart?
 
 class ShaderBase
-
 {
 public:
+    /**
+     * @fn ShaderBase::ShaderBase(const char* source)
+     * @brief Initializes the source member.
+     * @param source A constant character pointer to the GLSL source code for 
+     *               the shader.
+     */
+    ShaderBase(const char* source);
+
+protected:
+
+    const char *shaderSource,
+    unsigned int shaderID_;
+
+
 
 }
 /**
@@ -27,7 +40,7 @@ public:
  * @remark The input variable location is set to 0.
  * 
  */
-class VertexShader
+class VertexShader : protected ShaderBase
 {
 public:
     /**
@@ -65,14 +78,7 @@ private:
      * @brief A constant character pointer containing the GLSL source code for 
      * the vertex shader.
      */
-    const char *vertexShaderSource = "#version 330 core\n"
-    // Defining variables 
-    "layout (location = 0) in vec3 aPos;\n"
-    "void main()\n"
-    // Setting drawing position on the viewport, same as input.
-    "{\n"
-    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n" 
-    "}\0";
+    const char *vertexShaderSource;
 
     /** 
      * @var VertexShader::vertexShader_
