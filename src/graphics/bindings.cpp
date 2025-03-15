@@ -1,13 +1,13 @@
-#include "buffers.hpp"
+#include "bindings.hpp"
 
-void Buffers::generateBufferID()
+void VBO::generateBufferID()
 {
-    glGenBuffers(1, buffer_id.get());
+    glGenBuffers(1, bufferID_.get());
 }
 
-void VBO::bindBuffer( const GLenum bufferType )
+void VBO::bindBuffer()
 {
-    glBindBuffer( bufferType, *buffer_id );
+    glBindBuffer( GL_ARRAY_BUFFER, *bufferID_ );
 
 }
 
@@ -15,7 +15,7 @@ void VBO::bindBuffer( const GLenum bufferType )
 VBO::VBO(const std::vector<float> &vertices, const GLenum &DRAW_TYPE)
 {
     generateBufferID();
-    bindBuffer(GL_ARRAY_BUFFER);
+    bindBuffer();
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float),
                  vertices.data(), DRAW_TYPE);
 }
