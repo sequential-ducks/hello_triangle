@@ -1,6 +1,6 @@
 
 #include "window.hpp"
-#include "buffers.hpp"
+#include "bindings.hpp"
 #include "shaders.hpp"
 #include <iostream>
 
