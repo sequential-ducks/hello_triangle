@@ -1,3 +1,9 @@
+/**
+ * @file buffers.hpp
+ * @brief Header file for buffer processing
+ */
+#pragma once
+
 #include <memory>
 #include <glad/glad.h> 
 #include <vector>
