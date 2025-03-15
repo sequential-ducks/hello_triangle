@@ -1,6 +1,24 @@
 /**
  * @file shaders.hpp
  * @brief Header file for shader-related classes and functions.
+ * This file contains the declarations of classes and functions used for 
+ * managing and compiling GLSL shaders in an OpenGL context. It includes 
+ * the base class `Shader` which provides common functionality for shader 
+ * management, as well as derived classes `VertexShader` and `FragmentShader` 
+ * for handling specific types of shaders.
+ * 
+ * The `Shader` class includes methods for generating shader IDs, 
+ * compiling shaders,linking shader programs, and checking for compilation 
+ * errors. It also manages the source GLSL code and IDs of shaders and shader 
+ * programs.
+ * 
+ * The `VertexShader` and `FragmentShader` classes inherit from `Shader` and 
+ * provide specific implementations for vertex and fragment shader generation, 
+ * respectively.
+ * 
+ * This header file is essential for setting up and managing shaders in an OpenGL 
+ * application, ensuring that shaders are correctly compiled and linked into 
+ * executable programs.
  */
 
 #pragma once
@@ -8,7 +26,6 @@
 #include <cstddef>
 #include <stdexcept>
 #include <vector>
-#include <iostream>
 
 /**
  * @class Shader
