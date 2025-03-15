@@ -44,6 +44,7 @@ int main()
         "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
         "}\n\0";
         auto fragShader = FragmentShader(fragmentShaderSource);
+        fragShader.linkProgram();
     }
     catch( const std::logic_error& except)
     {
