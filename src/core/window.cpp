@@ -1,11 +1,4 @@
-/**
-* @include Headers
-*/
 #include "window.hpp"
-
-/**
-* @section Static members
-*/
 
 /**
 * @var My_GLFW_Window_Manager::initialization_success
@@ -17,7 +10,8 @@ bool My_GLFW_Window_Manager::initialization_success_{ true };
  * @var My_GLFW_Window_Manager::window
  * @brief Pointer to the GLFW window.
  */
-std::shared_ptr<GLFWwindow> My_GLFW_Window_Manager::window_{ nullptr, glfwDestroyWindow };
+std::shared_ptr<GLFWwindow> My_GLFW_Window_Manager::window_{ nullptr, 
+                                                            glfwDestroyWindow };
 
 /**
  * @var My_GLFW_Window_Manager::windowWidth
@@ -84,14 +78,10 @@ void My_GLFW_Window_Manager::initialize()
 
 My_GLFW_Window_Manager::~My_GLFW_Window_Manager() 
 {
-    terminate_GLFW_Window_Manager();
-}
-
-void My_GLFW_Window_Manager::terminate_GLFW_Window_Manager() 
-{
     // Terminate GLFW
     glfwTerminate();
 }
+
 
 /**
 * @section Setup Member functions
