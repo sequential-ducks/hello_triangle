@@ -6,9 +6,9 @@ This project is a simple demonstration of OpenGL rendering where I have practice
 
 ## Features
 
-- Set up an OpenGL context using GLFW.
-- Created a window using GLFW.
-- Rendered a triangle using OpenGL.
+- Set up an OpenGL context.
+- Created a window.
+- Rendered a triangle.
 
 ## Screenshot
 
