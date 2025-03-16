@@ -26,6 +26,7 @@ This project is a simple demonstration of OpenGL rendering where I have practice
 - GLFW
 - GLEW
 - OpenGL
+- glad
 
 ## Learning Outcomes
 
