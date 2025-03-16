@@ -2,7 +2,7 @@
 
 ## Project Description
 
-This project is a simple demonstration of OpenGL rendering where I have practiced drawing a basic triangle. The main objective was to understand the fundamentals of OpenGL, including setting up the environment, creating a window, and rendering a 2D shape.
+This project is a simple demonstration of OpenGL rendering where I have practiced drawing a basic triangle. The main objective was to understand the fundamentals of OpenGL, including setting up the environment, creating a window, and rendering a 2D shape. Credit to the turtorial at https://learnopengl.com/ for helping me.
 
 ## Features
 
