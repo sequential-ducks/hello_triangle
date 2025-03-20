@@ -3,16 +3,12 @@
 void Shader::generateID(GLenum shaderType)
 {
     shaderID_ = glCreateShader(shaderType);
-    shaders_.push_back(shaderID_);
 }
 
 void Shader::compileShader()
 {
-    if (shaderID_ != 0)
-    {
-        glShaderSource(shaderID_, 1, &shaderSource_, NULL);
-        glCompileShader(shaderID_);
-    }
+    glShaderSource(shaderID_, 1, &shaderSource_, NULL);
+    glCompileShader(shaderID_);
 }
 
 
@@ -28,41 +24,6 @@ void Shader::checkShaderCompilation(const std::string& shaderType)
                                 std::string("::COMPILATION_FAILED\n ") 
                                 + infoLog);
     }
-}
-
-void Shader::generateProgramID()
-{
-    programID_ = glCreateProgram();
-}
-
-void Shader::checkProgramCompilation()
-{
-    int success;
-    char infoLog[512];
-    glGetProgramiv(programID_, GL_LINK_STATUS, &success);
-    if (!success)
-    {
-        glGetProgramInfoLog(programID_, 512, NULL, infoLog);
-        throw std::logic_error(std::string("ERROR::PROGRAM::LINKING_FAILED\n") 
-                                + infoLog);
-    }
-}
-
-unsigned int Shader::linkProgram()
-{
-    generateProgramID();
-    if (programID_ != 0 and !shaders_.empty())
-    {
-        for (const auto &s : shaders_)
-        {
-            glAttachShader(programID_, s);
-            glDeleteShader(s);
-        }
-        glLinkProgram(programID_);
-    }
-    checkProgramCompilation();
-    glUseProgram(programID_);
-    return programID_;
 }
 
 
@@ -83,3 +44,22 @@ FragmentShader::FragmentShader(const char *source)
     checkShaderCompilation("FRAGMENT");
 }
 
+Program::Program(const unsigned int vertexShaderID, const unsigned int fragShaderID)
+{
+    int success;
+    char infoLog[512];
+    shaderProgram_ = glCreateProgram();
+    glAttachShader(shaderProgram_, vertexShaderID);
+    glAttachShader(shaderProgram_, fragShaderID);
+    glLinkProgram(shaderProgram_);
+    // check for linking errors
+    glGetProgramiv(shaderProgram_, GL_LINK_STATUS, &success);
+    if (!success) 
+    {
+        glGetProgramInfoLog(shaderProgram_, 512, NULL, infoLog);
+        throw std::logic_error(std::string("ERROR::SHADER::PROGRAM::LINKING_FAILED\n") 
+        + infoLog);
+    }
+    glDeleteShader(vertexShaderID);
+    glDeleteShader(fragShaderID);
+}
