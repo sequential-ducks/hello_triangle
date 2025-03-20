@@ -27,6 +27,8 @@
 #include <stdexcept>
 #include <vector>
 
+
+ 
 /**
  * @class Shader
  * @brief A class representing a GLSL shader.
@@ -42,8 +44,7 @@ public:
      * @param source The GLSL source code for the shader.
      * @return void This function does not return a value.
     */
-    Shader(const char* source) : shaderSource_(source), shaderID_{0}, 
-                                 programID_{0}{};
+    Shader(const char* source) : shaderSource_(source), shaderID_{0}{};
 
     /**
      * @fn Shader::virtual ~Shader()
@@ -57,12 +58,11 @@ public:
     Shader& operator=(const Shader&) = delete;
 
     /**
-     * @fn unsigned int Shader::linkProgram
-     * @brief Attaches shaders to form a linked shader program.
-     * @return unsigned int The ID of a linked program.
-     * @throws 
+     * @fn unsigned int Shader::getShaderID() const
+     * @brief Getter for the shader ID.
+     * @return The shader ID.
      */
-    unsigned int linkProgram();
+    unsigned int getShaderID() const { return shaderID_; }
 
 protected:
 
@@ -96,14 +96,6 @@ protected:
     void compileShader();
 
     void generateProgramID();
-    /**
-     * @fn void Shader::checkProgramCompilation();
-     * @brief Checks if any errors happened and if a program was compiled.
-     * @throws std::logic_error if program compilation failed.
-     * @return void This function does not return a value.
-    */
-    void checkProgramCompilation();
-
 
     /**
      * @var shaderSource_
@@ -118,17 +110,6 @@ protected:
     */
     unsigned int shaderID_;
 
-    /** 
-     * @var shaders_
-     * @brief Container for all compiled shaders from deriving classes.
-    */
-    std::vector<unsigned int> shaders_;
-
-    /**
-     * @var programID_
-     * @brief Holds the ID of the linked program.
-     */
-    unsigned int programID_;
 };
 
 
@@ -187,3 +168,20 @@ public:
     FragmentShader& operator=(const FragmentShader&) = delete;  
 
 };
+
+class Program
+{
+public:
+    Program(const unsigned int vertexShaderID, const unsigned int fragShaderID);
+    ~Program() = default;
+
+    /**
+     * @fn unsigned int Program::getProgramID() const
+     * @brief Getter for the shader program ID.
+     * @return The shader program ID.
+     */
+    unsigned int getProgramID() const { return shaderProgram_; }
+
+private:
+    unsigned int shaderProgram_;
+};;
