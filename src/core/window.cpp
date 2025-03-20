@@ -29,7 +29,7 @@ int My_GLFW_Window_Manager::windowHeight_{ 480 };
  * @var My_GLFW_Window_Manager::title
  * @brief Title of the window.
  */
-const std::string My_GLFW_Window_Manager::title_{ "LearnOpenGL" };
+const std::string My_GLFW_Window_Manager::title_{ "Triangle" };
 
 /**
 * @section Constructor & Initialization
@@ -112,7 +112,7 @@ bool My_GLFW_Window_Manager::openGLFW()
     delete glfw_init_errors;
     }else
     {
-        // Set the openGL version as 3.3 per tutorial at learnopengl.com
+        // Set the openGL version as 3.3 
         glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
         glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 3 );
         // Request core OpenGL profile
@@ -128,7 +128,8 @@ bool My_GLFW_Window_Manager::createWindow()
 
     // Try to generate a window
     window_.reset(glfwCreateWindow(windowWidth_,
-                             windowHeight_, title_.c_str(), nullptr, nullptr), glfwDestroyWindow);
+                             windowHeight_, title_.c_str(), nullptr, nullptr), 
+                             glfwDestroyWindow);
     if (!window_)
         {
             // Window generating failed
@@ -169,6 +170,60 @@ void My_GLFW_Window_Manager::processInput()
 
 void My_GLFW_Window_Manager::display()
 {
+     // Defining GLSL code for the vertex shader
+    const char *vertexShaderSource = 
+    "#version 330 core\n"
+    // Start location is 0, out variable aPos is triangle position
+    "layout (location = 0) in vec3 aPos;\n"
+    "void main()\n"
+    // Setting drawing position on the viewport, same as input.
+    "{\n"
+    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n" 
+    "}\0";
+
+    const char *fragmentShaderSource = 
+    "#version 330 core\n"
+    // Define out variable as FragColor.
+    "out vec4 FragColor;\n"
+    "void main()\n"
+    // Define value of FragColor as orange with 100% opacity.
+    "{\n"
+    "   FragColor = vec4(0.5f, 1.0f, 0.2f, 1.0f);\n"
+    "}\n\0";
+
+    std::vector<float> defaultTriangleVertices_ =
+    {
+        -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+        0.0f,  0.5f, 0.0f
+    };
+    std::unique_ptr<Program> shaderProgram;
+    std::unique_ptr<BufferSetup> buffer;
+    try
+    {
+        // Create shader objects, if fail throws logic error
+        auto vertexShader = VertexShader(vertexShaderSource);
+        auto fragShader = FragmentShader(fragmentShaderSource);
+
+        // Use the compiled shaders to get a linked shader program
+        shaderProgram = std::make_unique<Program>
+        (Program(vertexShader.getShaderID(), fragShader.getShaderID()));
+
+        // Move triangle data to the GPU buffer
+        buffer = std::make_unique<BufferSetup>
+                            (BufferSetup(defaultTriangleVertices_));
+    }
+    catch( const std::logic_error& except)
+    {
+        std::cout << except.what();
+        return;
+    }
+    // Check for OpenGL errors
+    GLenum err;
+    if ((err = glGetError()) != GL_NO_ERROR) 
+    {
+        std::cout << "OpenGL error: " << err << std::endl;
+    }
     // Main loop until the window should close
     while( !glfwWindowShouldClose( window_.get() ) )
     {
@@ -182,6 +237,10 @@ void My_GLFW_Window_Manager::display()
         glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
         glClear( GL_COLOR_BUFFER_BIT );
 
+        // Drawing logic for a triangle
+        glUseProgram(shaderProgram->getProgramID());
+        glBindVertexArray(buffer->getVAOId()); 
+        glDrawArrays(GL_TRIANGLES, 0, 3);
         /**
         * @subsection Buffers swap & event handling
         */

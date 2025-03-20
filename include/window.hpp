@@ -27,7 +27,9 @@
 #include <cstdio>
 #include <memory>
 #include <string>
-
+#include <iostream>
+#include "buffer.hpp"
+#include "shaders.hpp"
 
 /**
  * @class My_GLFW_Window_Manager
