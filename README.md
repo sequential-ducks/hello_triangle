@@ -33,9 +33,5 @@ This project is a simple demonstration of OpenGL rendering where I have practice
 - Understanding of OpenGL pipeline.
 - Experience with setting up an OpenGL context.
 - Basic knowledge of shaders and rendering.
-
-## Future Improvements
-
-- Add more complex shapes.
-- Implement user interaction.
-- Explore 3D rendering.
+- Dependency managment with vcpkg
+- Cmake project managment in c++
