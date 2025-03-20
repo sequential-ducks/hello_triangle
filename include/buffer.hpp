@@ -1,30 +1,28 @@
 /**
- * @file bindings.hpp
- * @brief Header file for bound objects,  buffer processing and array objects
+ * @file buffer.hpp
+ * @brief Header file for buffer processing and array objects
  */
 #pragma once
-
-#include <memory>
 #include <glad/glad.h> 
 #include <vector>
 
 /**
- * @class VBO
- * @brief A class representing a Vertex Buffer Object (VBO) in OpenGL.
+ * @class BufferSetup
+ * @brief A class encapsulating Vertex Buffer Objects and Vertex Array Objects
+ * in OpenGL.
  * 
- * The VBO class is responsible for managing vertex buffer objects in OpenGL. 
- * It provides functionality to create, bind, and upload vertex data to the GPU. 
- * This class simplifies the process of handling vertex data and ensures 
- * efficient data transfer to the GPU.
+ * The BufferSetup class is responsible for managing buffer objects in 
+ * OpenGL. It provides functionality to create, bind, and upload vertex data 
+ * to the GPU. 
  * 
- * @note The VBO class assumes that the OpenGL context has been properly 
+ * @note The BufferSetup class assumes that the OpenGL context has been properly 
  * initialized before any of its methods are called.
  * 
  * @section Usage
- * To use the VBO class, create an instance by passing a vector of vertex data 
- * and an optional draw type. The draw type determines the expected usage 
- * pattern of the data store and can be GL_STATIC_DRAW, GL_DYNAMIC_DRAW, or 
- * GL_STREAM_DRAW.
+ * To use the BufferSetup class, create an instance by passing a vector of 
+ * vertex data and an optional draw type. The draw type determines the expected 
+ * usage pattern of the data store and can be GL_STATIC_DRAW, GL_DYNAMIC_DRAW, 
+ * or GL_STREAM_DRAW.
  * 
  * Example:
  * @code
@@ -33,26 +31,23 @@
  *      0.5f, -0.5f, 0.0f,
  *      0.0f,  0.5f, 0.0f
  * };
- * VBO vbo(vertices, GL_STATIC_DRAW);
+ * BufferSetup(vertices, GL_STATIC_DRAW);
  * @endcode
  * 
  * @section Dependencies
  * This class requires the following dependencies:
  * - OpenGL headers (e.g., GL/glew.h, GL/gl.h)
  * - A valid OpenGL context
- * 
- * @section SeeAlso
- * - VAO (Vertex Array Object) class
- * - EBO (Element Buffer Object) class
- */
-class VertexBuffer
+ * - Vector header for vertice data
+ * */
+class BufferSetup
 {
 public:
 
     /**
-     * @fn VBO::VBO(const std::vector<float>& vertices, 
+     * @fn BufferSetup::BufferSetup(const std::vector<float>& vertices, 
             const GLenum& DRAW_TYPE=GL_STATIC_DRAW);
-     * @brief Default VBO constructor. 
+     * @brief Default BufferSetup constructor. 
      * 
      * This constructor generates a buffer, binds it to the GL_ARRAY_BUFFER 
      * target, and uploads the provided vertex data to the GPU using the 
@@ -63,55 +58,47 @@ public:
      * @param DRAW_TYPE openGl Enum The drawing usage type of the data. 
      * @return void This function does not return a value.
      */
-    VBO(const std::vector<float>& vertices, 
+    BufferSetup(const std::vector<float>& vertices, 
             const GLenum& DRAW_TYPE=GL_STATIC_DRAW);
     
     /**
-     * @brief Default destructor for the VBO class.
+     * @brief Default destructor for the BufferSetup class.
      * 
      * This destructor is defined as the default, meaning it will automatically
-     * clean up any resources managed by the VBO class when an instance of the
+     * clean up any resources managed by the BufferSetup class when an instance of the
      * class is destroyed.
      */
-    ~VBO() = default;
+    ~BufferSetup() = default;
 
     // Delete copy constructor and copy assignment operator.
-    VBO(const VBO&) = delete;  
-    VBO& operator=(const VBO&) = delete;
+    BufferSetup& operator=(const BufferSetup&) = delete;
+
+    /**
+     * @brief Getter for VBO_
+     * 
+     * This function returns the unique ID of the Vertex Buffer Object (VBO).
+     * 
+     * @return unsigned int The unique ID of the VBO.
+     */
+    unsigned int getVBOId() const { return VBO_; }
+
+    /**
+     * @brief Getter for VAO
+     * 
+     * This function returns the unique ID of the Vertex Array Object (VAO).
+     * 
+     * @return unsigned int The unique ID of the VAO.
+     */
+    unsigned int getVAOId() const { return VAO_; }
 
 private:
-    std::vector<float> defaultTriangleVertices_ =
-    {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f,  0.5f, 0.0f
-    };
-
-    /**
-     * @fn void VBO::bindBuffer();
-     * @brief Bind generated VBO to OpenGL enum GL_ARRAY_BUFFER
-     * @return void This function does not return a value.
-     * @remark Further calls to GL_ARRAY_BUFFER will use the buffer_id of this 
-     * VBO class object.
-     */
-    void bindBuffer();
-
-    /**
-    * @fn VBO::generateBufferID
-    * @brief Sets buffer_id as a unique OpenGL buffer ID
-    * @return void This function does not return a value.
-    */
-   void generateBufferID();
-
    /**
-    * @var VBO::bufferID
-    * @brief A smart pointer to IDs created for buffers. 
-    * Default null. Creation of buffers is limited to 1.
-    */
-   std::unique_ptr<unsigned int> bufferID_;
-};
+    * @brief ID created for Vertex Buffer. 
+    **/
+   unsigned int VBO_;
 
-class VAO
-{
-
+    /**
+    * @brief ID created for Vertex Array Object. 
+    **/
+   unsigned int VAO_;
 };
