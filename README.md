@@ -14,20 +14,6 @@ This project is a simple demonstration of OpenGL rendering where I have practice
 
 ![Triangle Rendering](./triangle.png)
 
-## How to Run
-
-1. Clone the repository.
-2. Install the necessary dependencies.
-3. Compile the code.
-4. Run the executable to see the triangle rendered on the screen.
-
-## Dependencies
-
-- GLFW
-- GLEW
-- OpenGL
-- glad
-
 ## Learning Outcomes
 
 - Understanding of OpenGL pipeline.
